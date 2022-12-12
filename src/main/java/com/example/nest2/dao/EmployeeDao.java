@@ -1,6 +1,7 @@
 package com.example.nest2.dao;
 
 import com.example.nest2.model.EmployeeModel;
+import com.example.nest2.model.SecurityModel;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,5 +19,8 @@ public interface EmployeeDao extends CrudRepository<EmployeeModel, Integer> {
     @Transactional
     @Query(value="DELETE FROM `employee` WHERE `id`=:id",nativeQuery = true)
     void deleteEmployee(@Param("id") Integer id);
+
+    @Query(value = "SELECT `id`, `emp_designation`, `emp_email`, `emp_name`, `emp_phone`, `password`, `username` FROM `employee` WHERE `emp_email`=:email AND `password`=:password",nativeQuery = true)
+    List<EmployeeModel> EmployeeLogin(@Param("email") String email, @Param("password") String password);
 
 }
