@@ -23,4 +23,10 @@ public interface EmployeeDao extends CrudRepository<EmployeeModel, Integer> {
     @Query(value = "SELECT `id`, `emp_designation`, `emp_email`, `emp_name`, `emp_phone`, `password`, `username` FROM `employee` WHERE `emp_email`=:email AND `password`=:password",nativeQuery = true)
     List<EmployeeModel> EmployeeLogin(@Param("email") String email, @Param("password") String password);
 
+    @Query(value = "SELECT `id`, `empDesignation`, `empEmail`, `empName`, `password`, `empPhone`, `username` FROM `employee` WHERE `id`= :id", nativeQuery = true)
+    List<EmployeeModel> GetEmployeeProfile(@Param("id") int id);
+
+    @Query(value = "SELECT `id`, `empDesignation`, `empEmail`, `empName`, `password`, `empPhone`, `username` FROM `employee` WHERE `username`= :username AND `password`= :password AND `emp_code`= :empCode", nativeQuery = true)
+    List<EmployeeModel> UserLoginCred(@Param("username") String username, @Param("password") String password,@Param("empCode") String empCode);
+
 }
