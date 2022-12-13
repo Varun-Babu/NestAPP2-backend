@@ -61,4 +61,10 @@ public class SecurityController {
         return map;
     }
 
-}
+    @PostMapping(path = "/securityProfile", consumes = "application/json", produces = "application/json")
+    public List<SecurityModel> getSecurityProfile(@RequestBody SecurityModel s){
+        System.out.println(s.getId());
+        return (List<SecurityModel>) sdao.GetSecurityProfile(s.getId());}
+
+
+    }

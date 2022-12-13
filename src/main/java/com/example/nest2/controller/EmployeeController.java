@@ -66,6 +66,11 @@ public class EmployeeController {
         return map;
     }
 
+    @PostMapping(path = "/employeeProfile", consumes = "application/json", produces = "application/json")
+    public List<EmployeeModel> getEmployeeProfile(@RequestBody EmployeeModel e){
+        return (List<EmployeeModel>) edao.GetEmployeeProfile(e.getId());
+    }
+
 
 
 

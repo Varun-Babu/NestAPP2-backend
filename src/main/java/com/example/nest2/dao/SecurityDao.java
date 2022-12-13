@@ -22,4 +22,7 @@ public interface SecurityDao extends CrudRepository<SecurityModel,Integer> {
 
     @Query(value = "SELECT `id`, `address`, `name`, `password`, `username` FROM `security` WHERE `username` =:username AND `password`= :password",nativeQuery = true)
     List<SecurityModel> SecurityLogin(@Param("username") String username,@Param("password") String password);
+
+    @Query(value = "SELECT `id`,`address`, `name`,`password`, `username` FROM `security` WHERE `id`= :id", nativeQuery = true)
+    List<SecurityModel> GetSecurityProfile(@Param("id") int id);
 }
