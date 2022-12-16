@@ -15,10 +15,12 @@ public interface LeaveDao extends CrudRepository<LeaveModel,Integer> {
     @Query(value = "SELECT l.`id`, l.`apply_date`,l. `description`, l.`emp_id`, l.`leave_date`, l.`status`,e.emp_name,e.emp_designation `type` FROM `leavetotal` l JOIN employee e ON l.emp_id=e.id WHERE `status`=0",nativeQuery = true)
     List<Map<String,String>> viewAllLeaves();
 
-    @Query(value = "SELECT l.`id`, l.`apply_date`, l.`description`, l.`emp_id`, l.`leave_date`, l.`status`, l.`type`,e.emp_name,e.emp_designation FROM `leavetotal` l JOIN employee e ON l.emp_id=e.id WHERE l.emp_id=:emp_id",nativeQuery = true)
+    @Query(value = "SELECT l.`id`, l.`apply_date`, l.`description`, l.`emp_id`, l.`leave_date`, l.`status`, l.`type`,e.emp_name,e.emp_designation FROM `leavetotal` l JOIN employee e ON l.emp_id=e.id WHERE l.id=:emp_id",nativeQuery = true)
     List<Map<String,String>>viewLeaveById(@Param("emp_id") Integer emp_id);
 
     @Modifying
     @Query(value = "UPDATE `leavetotal` SET `status`=:status WHERE `id`=:id",nativeQuery = true)
     void updateById(@Param("status") Integer status,@Param("id") Integer id);
+
+
 }
