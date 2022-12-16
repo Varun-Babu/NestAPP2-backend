@@ -35,13 +35,15 @@ public class LogController {
     @CrossOrigin(origins = "*")
     @Transactional
     @PostMapping(path = "/logout",consumes = "application/json",produces = "application/json")
-    public String logOutStatus(@RequestBody LogModel l){
+    public HashMap<String, String> logOutStatus(@RequestBody LogModel l){
         DateTimeFormatter dt=DateTimeFormatter.ofPattern("dd:MM:yyyy HH:mm:ss");
         LocalDateTime now=LocalDateTime.now();
         String currentdate=String.valueOf(dt.format(now));
         l.setOutDate(currentdate);
         ldao.logOutStatus(l.getCheckOut(),l.getOutDate(),l.getId());
-        return "{status:success}";
+        HashMap<String,String> map =new HashMap<>();
+        map.put("status","success");
+        return map;
 }
 
     @CrossOrigin(origins = "*")
@@ -54,7 +56,6 @@ public class LogController {
     @CrossOrigin(origins = "*")
     @GetMapping("/viewAllLogs")
     public List<Map<String,String>> viewAllLog(){
-
         return (List<Map<String, String>>) ldao.viewAllLog();
     }
 

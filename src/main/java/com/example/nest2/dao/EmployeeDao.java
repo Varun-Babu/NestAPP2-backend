@@ -1,7 +1,6 @@
 package com.example.nest2.dao;
 
 import com.example.nest2.model.EmployeeModel;
-import com.example.nest2.model.SecurityModel;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -23,10 +22,18 @@ public interface EmployeeDao extends CrudRepository<EmployeeModel, Integer> {
     @Query(value = "SELECT `id`, `emp_designation`, `emp_email`, `emp_name`, `emp_phone`, `password`, `username` FROM `employee` WHERE `emp_email`=:email AND `password`=:password",nativeQuery = true)
     List<EmployeeModel> EmployeeLogin(@Param("email") String email, @Param("password") String password);
 
-    @Query(value = "SELECT `id`, `empDesignation`, `empEmail`, `empName`, `password`, `empPhone`, `username` FROM `employee` WHERE `id`= :id", nativeQuery = true)
+    @Query(value = "SELECT `id`, `emp_designation`, `emp_email`, `emp_name`, `emp_phone`, `password`, `username` FROM `employee` WHERE `id`= :id", nativeQuery = true)
     List<EmployeeModel> GetEmployeeProfile(@Param("id") int id);
 
-    @Query(value = "SELECT `id`, `empDesignation`, `empEmail`, `empName`, `password`, `empPhone`, `username` FROM `employee` WHERE `username`= :username AND `password`= :password AND `emp_code`= :empCode", nativeQuery = true)
-    List<EmployeeModel> UserLoginCred(@Param("username") String username, @Param("password") String password,@Param("empCode") String empCode);
+    @Query(value = "SELECT `id`, `emp_designation`, `emp_email`, `emp_name`, `emp_phone`, `password`, `username` FROM `employee` WHERE `username`= :username AND `password`= :password AND `id`= :empCode", nativeQuery = true)
+    List<EmployeeModel> UserLoginCred(@Param("username") String username, @Param("password") String password,@Param("empCode") int empCode);
+
+    @Query(value = "SELECT `id`, `emp_designation`, `emp_email`, `emp_name`, `emp_phone`, `password`, `username` FROM `employee` WHERE `id`= :empCode", nativeQuery = true)
+    List<EmployeeModel> UserLogDetailsById(@Param("empCode") String empCode);
+
+//    @Modifying
+//    @Transactional
+//    @Query(value = "UPDATE `employee` SET `emp_designation`= :designation,`emp_email`= :email,`emp_name`= :name,`password`= :password,`emp_phone`= :phone,`username`= :username WHERE `id`= :id", nativeQuery = true)
+//    void EditEmployee(@Param("id") int id, @Param("designation") String designation,@Param("email") String email,@Param("name") String name,@Param("password") String password,@Param("phone") String phone,@Param("username") String username);
 
 }
